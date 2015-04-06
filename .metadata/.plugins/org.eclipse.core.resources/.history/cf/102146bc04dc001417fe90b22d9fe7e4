@@ -1,0 +1,17 @@
+package main;
+import java.io.IOException;
+
+public class main {
+
+	static int PORT = 8080;
+	public static void main(String args[]) {
+
+        try {
+    		Supporter _supp = ServerSupport.getInstance(PORT);
+        }
+        catch (IOException e) {
+            System.out.println("There was an error with the configuration " + e.getMessage());
+        }
+	}
+
+}
