@@ -168,7 +168,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        Intent intent = new Intent(this, Monitor.class);
+        Intent intent = new Intent(this, MonitorActivity.class);
         intent.putExtra("ipAddress", _ipAddress);
         intent.putExtra("port", _port);
         intent.putExtra("CLIENT_PORT", CLIENT_PORT);
