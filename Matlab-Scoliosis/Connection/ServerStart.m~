@@ -1,0 +1,21 @@
+function stInfo = start_server(Port)
+%% checkout input argument
+if nargin < 1
+    error('empty argument');
+end
+
+stInfo = struct('clientSupp', '', 'IPAddress', '', 'clientPort', '');         
+stInfo.clientSupp = getPort(Port);
+%% find the client
+mls_supporter_find_client(stInfo.clientSupp);
+
+%% listen client response
+fprintf('listening client...');
+[stInfo.IPAddress, stInfo.clientPort] = clientAddress(stInfo.clientSupp);
+fprintf('OK\nClient IP: %s, Port: %d\n', stInfo.IPAddress, stInfo.clientPort);
+
+%% send login command
+mls_supporter_send(stInfo.clientSupp, '-login');
+
+return;
+end
