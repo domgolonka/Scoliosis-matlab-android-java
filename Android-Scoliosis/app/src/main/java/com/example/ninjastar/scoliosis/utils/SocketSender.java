@@ -86,8 +86,10 @@ public class SocketSender extends AsyncTask<Boolean, Void, Boolean> {
                 checkServer();
                 result = true;
             } catch (UnknownHostException e) {
+                Log.d("UnknownHost", "UnknownHostException: " + e.getMessage());
                 result = false;
             } catch (IOException e) {
+                Log.d("IOException", "IOEXCEPTION: " + e.getMessage());
                 result = false;
             }
         }

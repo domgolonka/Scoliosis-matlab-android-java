@@ -30,7 +30,7 @@ fprintf('listening client...');
 fprintf('OK\nClient IP: %s, Port: %d\n', stInfo.IPAddress, stInfo.clientPort);
 
 %% send login command
-mls_supporter_send(stInfo.clientSupp, '-login');
+sender(stInfo.clientSupp, '-login');
 
 return;
 end

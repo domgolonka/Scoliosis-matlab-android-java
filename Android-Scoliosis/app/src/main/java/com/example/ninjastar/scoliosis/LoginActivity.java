@@ -22,6 +22,7 @@ import com.example.ninjastar.scoliosis.utils.SocketReceiver;
 import com.example.ninjastar.scoliosis.utils.SocketSender;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
@@ -54,7 +55,7 @@ public class LoginActivity extends Activity {
                 try {
                     couple();
                 } catch (Exception e) {
-                    Log.d("LogInServer", e.getMessage());
+                    Log.d("LoginActivity", e.getMessage());
                 }
             }
 
@@ -90,7 +91,7 @@ public class LoginActivity extends Activity {
         int nPort = Integer.parseInt(sPort);
 
         if (!checkServer(sIpAddress, nPort)) {
-            alert("server not available.");
+            alert("server not available." + checkServer(sIpAddress, nPort));
             return;
         }
 
