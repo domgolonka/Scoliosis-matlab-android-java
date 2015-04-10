@@ -13,7 +13,7 @@ function stInfo = ServerStart(Port)
 
 %% checkout input argument
 if nargin < 1
-    error('empty argument');
+error('empty argument');
 end
 
 %display(sprintf('Start server. IP: %s, Port: %d ', char(java.net.Inet4Address.getLocalHost.getHostAddress), Port));
