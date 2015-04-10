@@ -129,11 +129,6 @@ public class ServerSupport implements Supporter {
 		return new String(data);
 	}
 	@Override
-	public int getSize() {
-		int i = data[0];
-		return i;
-	}
-	@Override
 	public int[] getR() {
 		return R;
 	}

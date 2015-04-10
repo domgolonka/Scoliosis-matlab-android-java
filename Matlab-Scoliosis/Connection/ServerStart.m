@@ -20,17 +20,17 @@ end
 
 %% initiate
 stInfo = struct('clientSupp', '', 'IPAddress', '', 'clientPort', '');         
-stInfo.clientSupp = getPort(Port);
+stInfo.clientConnection = getPort(Port);
 %% find the client using the Java function findClient() and listen the testing action from client
-stInfo.clientSupp.findClient();
+stInfo.clientConnection.findClient();
 
 %% listen client response
 fprintf('listening client...');
-[stInfo.IPAddress, stInfo.clientPort] = clientAddress(stInfo.clientSupp);
+[stInfo.IPAddress, stInfo.clientPort] = clientAddress(stInfo.clientConnection);
 fprintf('OK\nClient IP: %s, Port: %d\n', stInfo.IPAddress, stInfo.clientPort);
 
 %% send login command
-sender(stInfo.clientSupp, '-login');
+sender(stInfo.clientConnection, '-login');
 
 return;
 end

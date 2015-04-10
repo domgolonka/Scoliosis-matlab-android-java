@@ -29,6 +29,7 @@ public class SocketSender extends AsyncTask<Boolean, Void, Boolean> {
         this._data = ByteBuffer.allocate(4).putInt(data).array();
     }
 
+
     private void sendData() {
         if (_data == null) {
             return;
@@ -42,6 +43,7 @@ public class SocketSender extends AsyncTask<Boolean, Void, Boolean> {
             outputStream.writeInt(_data.length);
             outputStream.write(_data);
             outputStream.flush();
+            Log.d("SENDING IP, PORT, DATA", _host + ", " + _port + ", " + String.valueOf(_data));
         } catch (UnknownHostException e) {
             Log.d("SocketSender", "UnknownHostException: " + e.getMessage());
         } catch (IOException e) {

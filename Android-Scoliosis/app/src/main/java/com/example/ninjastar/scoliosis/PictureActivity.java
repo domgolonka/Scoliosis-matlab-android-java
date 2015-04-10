@@ -244,7 +244,11 @@ public class PictureActivity extends Activity {
 
     private void sendServer(String sIpAddress, int nPort)
             throws InterruptedException, ExecutionException {
-
+        int[] imagesize = new int[1];
+        imagesize[1] = imageResult.getDrawable().getIntrinsicHeight();
+        imagesize[0] = imageResult.getDrawable().getIntrinsicWidth();
+        new SocketSender(sIpAddress, nPort, imagesize[0]).execute(false);
+        new SocketSender(sIpAddress, nPort, imagesize[1]).execute(false);
         new SocketSender(sIpAddress, nPort, adaptDataToRGB(_picture)).execute(false);
         new SocketSender(sIpAddress, nPort, coordinates.toString().getBytes()).execute(false);
     }

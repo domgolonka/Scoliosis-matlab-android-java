@@ -65,7 +65,7 @@ public interface Supporter {
 	/**
 	 * @return
 	 */
-	public int getSize();
+	public String getSize();
 	/**
 	 * @return
 	 */

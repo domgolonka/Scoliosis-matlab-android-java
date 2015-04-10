@@ -63,7 +63,7 @@ public class ServerSupport implements Supporter {
 	}
 
 	@Override
-	public void receiveData() throws IOException {
+	public void receivePicture() throws IOException {
 				
 		Receiver receiver = Receiver.getInstance(port);
 		receiver.run();
@@ -124,15 +124,7 @@ public class ServerSupport implements Supporter {
 		}
 
 	}
-	@Override
-	public String getCoordinates() {
-		return new String(data);
-	}
-	@Override
-	public int getSize() {
-		int i = data[0];
-		return i;
-	}
+
 	@Override
 	public int[] getR() {
 		return R;

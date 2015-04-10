@@ -24,10 +24,10 @@ public interface Supporter {
 	public String receiveClientAddress() throws IOException;
 		
 	/**
-	 * receive data from client
+	 * receive picture from client
 	 * @throws IOException
 	 */
-	public void receiveData() throws IOException;
+	public void receivePicture() throws IOException;
 
 	/**
 	 * adapt byte picture data to RGB
@@ -62,10 +62,6 @@ public interface Supporter {
 	 * @return
 	 */
 	public String getCoordinates();
-	/**
-	 * @return
-	 */
-	public int getSize();
 	/**
 	 * @return
 	 */
