@@ -169,8 +169,8 @@ public class PictureActivity extends Activity {
             paint.setStrokeWidth(3);
             canvasMaster.drawCircle(projectedX, projectedY, 5, paint);
             imageResult.invalidate();
-            Log.d("WIDTH", String.valueOf(x) + " " + bm.getWidth() + " " + iv.getWidth());
-            Log.d("HEIGHT", String.valueOf(y) + " " + bm.getHeight() + " " + iv.getHeight());
+            //Log.d("WIDTH", String.valueOf(x) + " " + bm.getWidth() + " " + iv.getWidth());
+            //Log.d("HEIGHT", String.valueOf(y) + " " + bm.getHeight() + " " + iv.getHeight());
         }
     }
     @Override
