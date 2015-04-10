@@ -39,7 +39,7 @@ public class Library extends Activity {
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
 
-    /**
+    /**  
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
