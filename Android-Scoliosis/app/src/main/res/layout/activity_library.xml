@@ -3,6 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Image from Gallery"
+        android:id="@+id/openGallery"
+        android:onClick="openGallery"
+        android:layout_gravity="center_horizontal" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

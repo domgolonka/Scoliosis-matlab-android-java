@@ -66,6 +66,15 @@ public class Library extends Activity {
     }
 
 
+    /*
+    Open imagesavetest Activity TODEL
+     */
+
+    public void openGallery(View view){
+        Intent intent = new Intent(this, imagesavetest.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
