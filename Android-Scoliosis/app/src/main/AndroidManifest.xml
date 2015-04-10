@@ -49,7 +49,14 @@
             android:label="@string/title_activity_library" >
 
         </activity>
+<<<<<<< HEAD
 
+=======
+        <activity
+            android:name=".viewImage"
+            android:label="@string/title_activity_view_image" >
+        </activity>
+>>>>>>> 9d2600059a0fed8433378454d8dcdf811912cc2e
     </application>
 
 </manifest>

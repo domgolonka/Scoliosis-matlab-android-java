@@ -10,4 +10,5 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_imagesavetest">imagesavetest</string>
+    <string name="title_activity_view_image">viewImage</string>
 </resources>
