@@ -29,10 +29,7 @@
         <activity
             android:name=".PictureActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".MonitorActivity"
@@ -47,16 +44,15 @@
         <activity
             android:name=".Library"
             android:label="@string/title_activity_library" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-<<<<<<< HEAD
-
-=======
         <activity
             android:name=".viewImage"
             android:label="@string/title_activity_view_image" >
         </activity>
->>>>>>> 9d2600059a0fed8433378454d8dcdf811912cc2e
     </application>
 
 </manifest>
