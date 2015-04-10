@@ -53,6 +53,10 @@
             android:name=".viewImage"
             android:label="@string/title_activity_view_image" >
         </activity>
+        <activity
+            android:name=".imagesavetest"
+            android:label="@string/title_activity_imagesavetest" >
+        </activity>
     </application>
 
 </manifest>

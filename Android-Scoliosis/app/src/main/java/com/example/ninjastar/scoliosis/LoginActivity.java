@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
         int command = new SocketReceiver(CLIENT_PORT).execute().get();
 
         if (command == Commands.LOGIN) {
-            startMonitor();
+            startEditPicture();
         }
     }
 
@@ -162,6 +162,17 @@ public class LoginActivity extends Activity {
         ad.setCancelable(true);
         ad.setMessage(text);
         ad.show();
+    }
+    private void startEditPicture() {
+        if (_ipAddress.isEmpty()) {
+            return;
+        }
+
+        Intent intent = new Intent(this, PictureActivity.class);
+        intent.putExtra("ipAddress", _ipAddress);
+        intent.putExtra("port", _port);
+        intent.putExtra("CLIENT_PORT", CLIENT_PORT);
+        startActivity(intent);
     }
 
     private void startMonitor() {

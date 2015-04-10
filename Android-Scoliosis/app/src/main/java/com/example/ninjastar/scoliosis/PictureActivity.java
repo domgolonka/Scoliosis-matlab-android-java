@@ -1,11 +1,14 @@
 package com.example.ninjastar.scoliosis;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -29,12 +32,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ninjastar.scoliosis.utils.Commands;
+import com.example.ninjastar.scoliosis.utils.SocketReceiver;
+import com.example.ninjastar.scoliosis.utils.SocketSender;
+
 public class PictureActivity extends Activity {
 
     Button btnLoadImage, btnResetImage;
     TextView textSource;
     ImageView imageResult;
     Canvas canvasMaster;
+
+    private String _ipAddress;
+    private int _port;
+    private int CLIENT_PORT;
+
+    private byte[] _picture;
 
     private Bitmap bmp;
     int x,y;
@@ -49,6 +62,13 @@ public class PictureActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            _ipAddress = extras.getString("ipAddress");
+            _port = extras.getInt("port");
+            CLIENT_PORT = extras.getInt("CLIENT_PORT");
+        }
 
         //Open the gallery to load the pictre
         Intent intent = new Intent();
@@ -75,10 +95,18 @@ public class PictureActivity extends Activity {
                         Log.d("COORDINATE: ", coordinates.toString());
                         fos.write(coordinates.toString().getBytes());
                         fos.close();
+
                     } catch (FileNotFoundException e) {
-                        e.getMessage();
+                        Log.d("FileNotFoundException", e.getMessage());
                     } catch (IOException e) {
-                        e.getMessage();
+                        Log.d("IOException", e.getMessage());
+                    }
+                    try {
+                        sendServer(_ipAddress, _port);
+                    } catch (ExecutionException e) {
+                        Log.d("ExecutionException", e.getMessage());
+                    } catch (InterruptedException e) {
+                        Log.d("InterruptedException", e.getMessage());
                     }
 
                 } else {
@@ -161,7 +189,7 @@ public class PictureActivity extends Activity {
             return;
         }else{
             int projectedX = (int)((double)x * ((double)bm.getWidth()/((double)iv.getWidth())));
-            int projectedY = (int)((double)y * ((double)bm.getHeight()/((double)iv.getHeight())));
+            int projectedY = (int)((double) y * ((double)bm.getHeight()/((double)iv.getHeight())));
 
             Paint   paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
@@ -187,12 +215,16 @@ public class PictureActivity extends Activity {
                 stream = getContentResolver().openInputStream(data.getData());
                 tempBitmap = BitmapFactory.decodeStream(stream);
 
+                _picture = getByteArray(tempBitmap);
+
 
                 //bitmapMaster is Mutable bitmap
                 bmp = Bitmap.createBitmap(
                         tempBitmap.getWidth(),
                         tempBitmap.getHeight(),
                         Bitmap.Config.ARGB_8888);
+
+
 
                 canvasMaster = new Canvas(bmp);
                 canvasMaster.drawBitmap(tempBitmap, 0, 0, null);
@@ -210,7 +242,32 @@ public class PictureActivity extends Activity {
             }
     }
 
+    private void sendServer(String sIpAddress, int nPort)
+            throws InterruptedException, ExecutionException {
 
+        new SocketSender(sIpAddress, nPort, adaptDataToRGB(_picture)).execute(false);
+        new SocketSender(sIpAddress, nPort, coordinates.toString().getBytes()).execute(false);
+    }
+    public byte[] getByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos);
+        return bos.toByteArray();
+    }
+
+    private byte[] adaptDataToRGB(byte[] data) {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        int[] rgbIntData = new int[imageResult.getDrawable().getIntrinsicWidth() * imageResult.getDrawable().getIntrinsicHeight()];
+        bitmap.getPixels(rgbIntData, 0, imageResult.getDrawable().getIntrinsicWidth(), 0, 0, imageResult.getDrawable().getIntrinsicWidth(), imageResult.getDrawable().getIntrinsicHeight());
+        byte[] rgbByteData = new byte[rgbIntData.length * 3];
+
+        for (int i = 0; i < rgbIntData.length; i++) {
+            rgbByteData[i*3] = (byte) Color.red(rgbIntData[i]);
+            rgbByteData[i*3 + 1] = (byte) Color.green(rgbIntData[i]);
+            rgbByteData[i*3 + 2] = (byte) Color.blue(rgbIntData[i]);
+        }
+
+        return rgbByteData;
+    }
     static class Coords {
         int xx;
         int yy;
