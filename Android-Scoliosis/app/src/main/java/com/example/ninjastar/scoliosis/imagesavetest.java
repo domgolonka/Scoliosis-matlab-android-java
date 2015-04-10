@@ -69,14 +69,14 @@ public class imagesavetest extends Activity {
     }
 
     public void savePictureButton(View view){
-        String FILENAME = ((EditText) findViewById(R.id.filenameEditText)).toString();
+        String FILENAME = ((EditText) findViewById(R.id.filenameEditText)).getText().toString();
 
         //String FILENAME = "filename";
 
         try{
             FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-
+            //fos.write("bitch work".getBytes());
             fos.close();
         }
         catch (FileNotFoundException e){
@@ -85,6 +85,9 @@ public class imagesavetest extends Activity {
         catch (IOException e){
             e.getMessage();
         }
+
+        Intent intent = new Intent(this, Library.class);
+        startActivity(intent);
 
     }
 
