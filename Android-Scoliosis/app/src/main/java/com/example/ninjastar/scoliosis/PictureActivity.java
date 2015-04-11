@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -15,7 +14,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,8 +30,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ninjastar.scoliosis.utils.Commands;
-import com.example.ninjastar.scoliosis.utils.SocketReceiver;
 import com.example.ninjastar.scoliosis.utils.SocketSender;
 
 public class PictureActivity extends Activity {
@@ -143,8 +139,8 @@ public class PictureActivity extends Activity {
                         drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
                         clicked++;
                         coordinates.put(clicked, new Coords(x, y));
-                        //textSource.setText("Please click on the vertebrae " + (maxclicked-clicked) + " more times");
-                        textSource.setText("X" + x + " : Y " + y);
+                        textSource.setText("Please click on the vertebrae " + (maxclicked-clicked) + " more times");
+                        //textSource.setText("X" + x + " : Y " + y);
                         imageResult.invalidate();
                         break;
                 }
