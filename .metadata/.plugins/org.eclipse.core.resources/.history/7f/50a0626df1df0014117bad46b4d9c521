@@ -133,8 +133,11 @@ public class ServerSupport implements Supporter {
 	}
 	
 	public void createImage() throws IOException {
+		System.out.println("1 " +new String(data));
 		InputStream in = new ByteArrayInputStream(data);
+		System.out.println("2 " +new String(data));
 		BufferedImage bImageFromConvert = ImageIO.read(in);
+		System.out.println("3 " +new String(data));
 		ImageIO.write(bImageFromConvert, "jpg", new File("USETHISONE.jpg")); 
 	}
 	@Override

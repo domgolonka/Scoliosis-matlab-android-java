@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import utils.Receiver;
 import utils.Sender;
@@ -76,7 +76,7 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 		this.data = receiver.getData();
-		//System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
+		System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
 	}
 	
 	@Override
@@ -133,9 +133,8 @@ public class ServerSupport implements Supporter {
 	}
 	
 	public void createImage() throws IOException {
-		InputStream in = new ByteArrayInputStream(data);
-		BufferedImage bImageFromConvert = ImageIO.read(in);
-		ImageIO.write(bImageFromConvert, "jpg", new File("USETHISONE.jpg")); 
+		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(data));
+		ImageIO.write(bufferedImage, "jpg", new File("USETHISONE.jpg")); 
 	}
 	@Override
 	public String getCoordinates() {

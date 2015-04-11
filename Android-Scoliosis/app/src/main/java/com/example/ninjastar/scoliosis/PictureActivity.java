@@ -230,6 +230,7 @@ public class PictureActivity extends Activity {
                 canvasMaster.drawBitmap(tempBitmap, 0, 0, null);
 
                 imageResult.setImageBitmap(bmp);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } finally {
@@ -244,24 +245,25 @@ public class PictureActivity extends Activity {
 
     private void sendServer(String sIpAddress, int nPort)
             throws InterruptedException, ExecutionException {
-        int[] imagesize = new int[1];
-        imagesize[1] = imageResult.getDrawable().getIntrinsicHeight();
-        imagesize[0] = imageResult.getDrawable().getIntrinsicWidth();
-        new SocketSender(sIpAddress, nPort, imagesize[0]).execute(false);
-        new SocketSender(sIpAddress, nPort, imagesize[1]).execute(false);
-        new SocketSender(sIpAddress, nPort, adaptDataToRGB(_picture)).execute(false);
+        /* int imgwidth = bmp.getWidth();
+        int imgheight = bmp.getHeight();
+        Log.d("WIDTH", String.valueOf(bmp.getWidth()));
+        Log.d("HEIGHT",String.valueOf(bmp.getHeight()));
+        new SocketSender(sIpAddress, nPort, imgwidth).execute(false);
+        new SocketSender(sIpAddress, nPort, imgheight).execute(false); */
+        new SocketSender(sIpAddress, nPort, _picture).execute(false);
         new SocketSender(sIpAddress, nPort, coordinates.toString().getBytes()).execute(false);
     }
     public byte[] getByteArray(Bitmap bitmap) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
         return bos.toByteArray();
     }
 
     private byte[] adaptDataToRGB(byte[] data) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        int[] rgbIntData = new int[imageResult.getDrawable().getIntrinsicWidth() * imageResult.getDrawable().getIntrinsicHeight()];
-        bitmap.getPixels(rgbIntData, 0, imageResult.getDrawable().getIntrinsicWidth(), 0, 0, imageResult.getDrawable().getIntrinsicWidth(), imageResult.getDrawable().getIntrinsicHeight());
+        int[] rgbIntData = new int[bmp.getWidth() * bmp.getHeight()];
+        bitmap.getPixels(rgbIntData, 0, bmp.getWidth() , 0, 0, bmp.getWidth(), bmp.getHeight());
         byte[] rgbByteData = new byte[rgbIntData.length * 3];
 
         for (int i = 0; i < rgbIntData.length; i++) {
@@ -272,6 +274,9 @@ public class PictureActivity extends Activity {
 
         return rgbByteData;
     }
+
+
+
     static class Coords {
         int xx;
         int yy;

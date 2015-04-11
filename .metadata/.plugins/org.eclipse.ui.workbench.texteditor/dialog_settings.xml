@@ -2,25 +2,26 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="localhost" key="selection"/>
+		<item value="System.out" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="system.out"/>
+			<item value="send"/>
+			<item value="receive"/>
+			<item value="_supp"/>
 			<item value="localhost"/>
 			<item value="Server"/>
 			<item value="server start"/>
 			<item value="getClientIpAddress"/>
-			<item value="find"/>
-			<item value="run"/>
-			<item value="main"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="379" key="DIALOG_WIDTH"/>
+		<item value="381" key="DIALOG_WIDTH"/>
 		<item value="1|Sans|12.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="499" key="DIALOG_HEIGHT"/>
 		<item value="1388" key="DIALOG_X_ORIGIN"/>

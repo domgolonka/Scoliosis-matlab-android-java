@@ -16,6 +16,8 @@ imageheight = clientConnection.getSize();
 clientConnection.receiveData()
 clientConnection.adaptByteToRGB();
 
+disp(imagewidth);
+disp(imageheight);
 %% get R, G, B submatrix
 dataR = clientConnection.getR();
 dataG = clientConnection.getG();

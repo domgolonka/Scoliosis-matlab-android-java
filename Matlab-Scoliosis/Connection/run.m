@@ -13,8 +13,12 @@ function run_start()
    
     % capture RGB picture
     %stOption = struct('sFormat','bShow', true);
-    getPicture(stInfo.clientConnection);
     
+    %getPicture(stInfo.clientConnection);
+    
+    
+    stInfo.clientConnection.receiveData();
+    stInfo.clientConnection.createImage();
     % capture coordinates file
     stInfo.clientConnection.receiveData();
     data = stInfo.clientConnection.getCoordinates();

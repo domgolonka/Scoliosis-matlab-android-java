@@ -76,7 +76,7 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 		this.data = receiver.getData();
-		//System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
+		System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
 	}
 	
 	@Override

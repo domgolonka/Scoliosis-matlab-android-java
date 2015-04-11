@@ -1,15 +1,8 @@
 package main;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
 
 import utils.Receiver;
 import utils.Sender;
@@ -76,7 +69,7 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 		this.data = receiver.getData();
-		//System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
+		//System.out.println("The data is: " +new String(this.data));
 	}
 	
 	@Override
@@ -131,19 +124,14 @@ public class ServerSupport implements Supporter {
 		}
 
 	}
-	
-	public void createImage() throws IOException {
-		InputStream in = new ByteArrayInputStream(data);
-		BufferedImage bImageFromConvert = ImageIO.read(in);
-		ImageIO.write(bImageFromConvert, "jpg", new File("USETHISONE.jpg")); 
-	}
 	@Override
 	public String getCoordinates() {
 		return new String(data);
 	}
 	@Override
 	public int getSize() {
-		return ByteBuffer.wrap(this.data).getInt();
+		int i = data[0];
+		return i;
 	}
 	@Override
 	public int[] getR() {
