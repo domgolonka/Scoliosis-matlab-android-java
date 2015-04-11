@@ -136,11 +136,11 @@ public class PictureActivity extends Activity {
                         textSource.setText("X" + x + " : Y " + y);
                         break;
                     case MotionEvent.ACTION_UP:
-                        drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
+                        int[] dims = drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
                         clicked++;
-                        coordinates.put(clicked, new Coords(x, y));
+                        coordinates.put(clicked, new Coords(dims[0], dims[1]));
                         textSource.setText("Please click on the vertebrae " + (maxclicked-clicked) + " more times");
-                        //textSource.setText("X" + x + " : Y " + y);
+                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
                         imageResult.invalidate();
                         break;
                 }
@@ -179,22 +179,24 @@ public class PictureActivity extends Activity {
      * Project position on ImageView to position on Bitmap
      * draw on it
      */
-    private void drawOnProjectedBitMap(ImageView iv, Bitmap bm, int x, int y){
+    private int[] drawOnProjectedBitMap(ImageView iv, Bitmap bm, int x, int y){
+        int[] results = new int[1];
         if(x<0 || y<0 || x > iv.getWidth() || y > iv.getHeight()){
             //outside ImageView
-            return;
+            return results;
         }else{
-            int projectedX = (int)((double)x * ((double)bm.getWidth()/((double)iv.getWidth())));
-            int projectedY = (int)((double) y * ((double)bm.getHeight()/((double)iv.getHeight())));
+            results[0] = (int)((double)x * ((double)bm.getWidth()/((double)iv.getWidth())));
+            results[1] = (int)((double) y * ((double)bm.getHeight()/((double)iv.getHeight())));
 
             Paint   paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.RED);
             paint.setStrokeWidth(3);
-            canvasMaster.drawCircle(projectedX, projectedY, 5, paint);
+            canvasMaster.drawCircle(results[0], results[0], 5, paint);
             imageResult.invalidate();
             //Log.d("WIDTH", String.valueOf(x) + " " + bm.getWidth() + " " + iv.getWidth());
             //Log.d("HEIGHT", String.valueOf(y) + " " + bm.getHeight() + " " + iv.getHeight());
+            return results;
         }
     }
     @Override
