@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+<!---
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,6 +12,14 @@
         android:onClick="openGallery"
         android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test viewImage"
+        android:id="@+id/viewImageTestButton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="viewImageViewTestButton"/>
+-->
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

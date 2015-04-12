@@ -95,6 +95,15 @@ public class Library extends Activity {
         startActivity(intent);
     }
 
+    /*
+    Open viewImage without a EXTRAMESSAGE to test hidding buttons TODEL
+     */
+
+    public void viewImageViewTestButton(View view){
+        Intent intent = new Intent(this, viewImage.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
