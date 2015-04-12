@@ -7,5 +7,7 @@ clear java
 
 %% add Connection Scripts
 addpath(fullfile(pwd, 'Connection'));
+%% this will receive picture + coordinates
+run
 
 end

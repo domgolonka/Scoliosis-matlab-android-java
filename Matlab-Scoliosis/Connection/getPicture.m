@@ -1,7 +1,7 @@
 function picture = getPicture(clientConnection)
 
 
-%% check supporter
+%% check client connection
 if ~isequal(class(clientConnection), ...
     'main.ServerSupport')
     error('invalid supporter');
@@ -13,7 +13,7 @@ imagewidth = clientConnection.getSize();
 clientConnection.receiveData();
 imageheight = clientConnection.getSize();
 %% receive picture data and convert data to rgb
-clientConnection.receiveData()
+clientConnection.receiveData();
 clientConnection.adaptByteToRGB();
 
 disp(imagewidth);

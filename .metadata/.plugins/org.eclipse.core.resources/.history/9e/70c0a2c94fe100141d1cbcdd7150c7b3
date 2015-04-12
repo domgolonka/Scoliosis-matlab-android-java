@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 public class Sender {
 	
 	private Socket socket;
-	private byte[] pic;
+
 	private int data;
 	private String ipAddress;
 	private int port;
@@ -37,33 +37,14 @@ public class Sender {
 	}
 	
 	/**
-	 * initialize socket
-	 * @param data the data which should be sent.
-	 * @throws UnknownHostException
-	 * @throws IOException
-	 */
-	public void initpic(byte[] pic) throws UnknownHostException, IOException {
-		if (socket == null) {
-			socket = new Socket(ipAddress, port);
-		}
-		this.pic = pic;
-	}
-	
-	/**
 	 * run sending
 	 */
-	public void run(boolean sendimage) {
+	public void run() {
 		try {
 			DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
-			if (sendimage == true) {
-				stream.write(pic);
-				stream.flush();
-				System.out.println("Image Sending");
-			} else {
-				stream.writeInt(data);
-				stream.flush();
-				System.out.println("command " + data + " sent.");
-			}
+			stream.writeInt(data);
+			stream.flush();
+			System.out.println("command " + data + " sent.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

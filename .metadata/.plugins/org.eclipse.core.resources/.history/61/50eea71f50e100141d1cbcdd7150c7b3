@@ -58,13 +58,13 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 	}
-	public void convertPicToByte(String filename) throws IOException {
-		BufferedImage image = ImageIO.read(new File(filename)); 
+	public byte[] convertPicToByte() throws IOException {
+		BufferedImage image = ImageIO.read(new File("Cobb.jpg")); 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 		ImageIO.write(image, "jpg", baos); 
 		byte[] res=baos.toByteArray();
 
-		this.data = res;
+		return res;
 	}
 	@Override
 	public void send(int data) throws Exception {
@@ -74,18 +74,9 @@ public class ServerSupport implements Supporter {
 		
 		Sender sender = new Sender(clientIpAddress, clientPort);
 		sender.init(data);
-		sender.run(false);
+		sender.run();
 	}
-	@Override
-	public void sendPicture() throws Exception {
-		if (clientIpAddress == null) {
-			throw new Exception("client ipaddress is empty.");
-		}
-		
-		Sender sender = new Sender(clientIpAddress, clientPort);
-		sender.initpic(data);
-		sender.run(true);
-	}
+
 	@Override
 	public void receiveData() throws IOException {
 				

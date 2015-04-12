@@ -28,7 +28,8 @@ stInfo.clientConnection.findClient();
 fprintf('listening client...');
 [stInfo.IPAddress, stInfo.clientPort] = clientAddress(stInfo.clientConnection);
 fprintf('OK\nClient IP: %s, Port: %d\n', stInfo.IPAddress, stInfo.clientPort);
-
+% save variable to work space
+save('clientConnection', stInfo);
 %% send login command
 sender(stInfo.clientConnection, '-login');
 

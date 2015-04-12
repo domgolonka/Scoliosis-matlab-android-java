@@ -70,9 +70,5 @@ public interface Supporter {
 	 * @return
 	 */
 	public byte[] getData();
-	/**
-	 * @return
-	 */
-	void sendPicture() throws Exception;
 	
 }

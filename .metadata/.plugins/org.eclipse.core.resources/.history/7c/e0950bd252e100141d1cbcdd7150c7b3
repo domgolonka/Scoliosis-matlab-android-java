@@ -58,8 +58,8 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 	}
-	public void convertPicToByte(String filename) throws IOException {
-		BufferedImage image = ImageIO.read(new File(filename)); 
+	public void convertPicToByte() throws IOException {
+		BufferedImage image = ImageIO.read(new File("Cobb.jpg")); 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 		ImageIO.write(image, "jpg", baos); 
 		byte[] res=baos.toByteArray();
