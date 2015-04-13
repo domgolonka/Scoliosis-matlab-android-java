@@ -44,7 +44,7 @@ public class SocketReceiver extends AsyncTask<Void, Void, byte[]> {
             Log.d("Reading DATA ", String.valueOf(s));
             if (s != 101) {
                 data = new byte[s];
-                stream.read(data);
+                stream.readFully(data);
                 //Log.d("Reading DATA ", String.valueOf(data));
 
             } else {

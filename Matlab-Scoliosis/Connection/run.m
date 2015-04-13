@@ -26,8 +26,8 @@ function run_start()
     
     %% Processing Image
     
-    %Cobbs;
-    pause(4);
+    Cobbs;
+    %pause(4);
     
     %% Sending Image
     fprintf('...Converting Image\n');
