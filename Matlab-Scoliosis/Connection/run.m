@@ -7,7 +7,7 @@ profile off;
 end
 
 function run_start()
-%try
+try
     %% start server
     stInfo = ServerStart(6999, 1);
   
@@ -35,8 +35,8 @@ function run_start()
 
     %send picture to android
     stInfo.clientConnection.sendPicture();
-    
-%catch
-    %fprintf('...FAIL\n');
-%end
+    fprintf('...FINISHED\n');
+catch
+    fprintf('...FAIL\n');
+end
 end
