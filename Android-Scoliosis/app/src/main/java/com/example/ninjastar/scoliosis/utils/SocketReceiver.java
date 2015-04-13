@@ -41,23 +41,20 @@ public class SocketReceiver extends AsyncTask<Void, Void, byte[]> {
             stream = new DataInputStream(socket.getInputStream());
 
             int s = stream.readInt();
-
+            Log.d("Reading DATA ", String.valueOf(s));
             if (s != 101) {
+                data = new byte[s];
+                stream.read(data);
+                //Log.d("Reading DATA ", String.valueOf(data));
 
-                Bitmap bm = BitmapFactory.decodeStream(stream);
-                data = getBytesFromBitmap(bm);
-                Log.d("Reading DATA ", String.valueOf(data));
-                //data = new byte[s];
-
-               // stream.readFully(data);
-                //Log.d("Reading Data", new String(data));
             } else {
                 data = ByteBuffer.allocate(4).putInt(s).array();
                 Log.d("Reading S", String.valueOf(s));
             }
-        } catch (IOException e) {
+        }catch(Exception e) {
             Log.d("SocketReceiver", "fail to receive data: " + e.getMessage());
-        } finally {
+            e.printStackTrace();
+        }finally {
 
             if (stream != null) {
                 try {
@@ -102,7 +99,7 @@ public class SocketReceiver extends AsyncTask<Void, Void, byte[]> {
     @Override
     protected byte[] doInBackground(Void... arg0) {
         byte[] recdata =  receiveData();
-        Log.d("DATA IS ", new String(recdata));
+        //Log.d("DATA IS ", new String(recdata));
         return recdata;
     }
 

@@ -51,8 +51,12 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
             Log.i("viewImage", "EXTRA_MESSAGE == null if passed");
             //matlabImage = BitmapFactory.decodeFile(this.getFilesDir() + "/Jane Smith");     //CHANGE TO MATLAB IMAGE HERE
             Bundle extras = getIntent().getExtras();
-
-            data = extras.getByteArray("image");
+            Log.d("DATA", "DATADATADATA");
+            data = intent.getByteArrayExtra("imagedata");
+            //data = extras.getByteArray("imagedata");
+            int test = extras.getInt("test");
+            Log.d("DATA TEST", String.valueOf(test));
+            Log.d("DATA DATA", new String(data));
             matlabImage = BitmapFactory.decodeByteArray(data, 0, data.length);
             imageView.setImageBitmap(matlabImage);
         }

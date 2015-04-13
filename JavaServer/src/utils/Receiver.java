@@ -54,14 +54,14 @@ private static Receiver _receiver;
 			_data = new byte[stream.readInt()];
 			stream.readFully(_data);
 		} catch (IOException e) {
-			//e.printStackTrace();
+			System.out.println("IOException3" + e.getMessage());
 		} finally {
 			if (stream != null) {
 				try {
 					stream.close();
 					stream = null;
 				} catch (IOException e) {
-					e.printStackTrace();
+					System.out.println("IOException4" + e.getMessage());
 				}
 			}
 			
@@ -69,7 +69,7 @@ private static Receiver _receiver;
 				_socket.close();
 				_socket = null;
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("IOException5" + e.getMessage());
 			}
 			
 		}

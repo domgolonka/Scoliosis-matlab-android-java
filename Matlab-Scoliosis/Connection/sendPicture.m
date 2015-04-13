@@ -1,16 +1,14 @@
 function sendPicture(clientConnection)
 
-%% check client connection
+%% check supporter
 if ~isequal(class(clientConnection), ...
     'main.ServerSupport')
     error('invalid supporter');
 end
 
-%file name
-filename = pwd + 'Cobb.jpg';
-
 %convert picture to byte array
-clientConnection.convertPicToByte(filename);
+fprintf('...Converting Image\n');
+clientConnection.convertPicToByte();
 
 %send picture to android
 clientConnection.sendPicture();

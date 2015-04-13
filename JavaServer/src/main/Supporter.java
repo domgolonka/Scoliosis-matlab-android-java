@@ -74,5 +74,7 @@ public interface Supporter {
 	 * @return
 	 */
 	void sendPicture() throws Exception;
+
+	boolean receiveSendPicture() throws IOException;
 	
 }

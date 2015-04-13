@@ -54,8 +54,6 @@ public class MonitorActivity extends Activity {
 
             }
             startViewImage();
-
-
         }
 
     });
@@ -71,14 +69,15 @@ public class MonitorActivity extends Activity {
             CLIENT_PORT = extras.getInt("CLIENT_PORT");
         }
         runCapture();
-        
+
     }
 
 
     private void startViewImage() {
-
+        Log.d("DATA DATA DATA", new String(this.data));
         Intent intent = new Intent(this, viewImage.class);
-        intent.putExtra("image", data);
+        intent.putExtra("imagedata", this.data);
+        intent.putExtra("test", 1234567890);
         startActivity(intent);
     }
 
@@ -92,24 +91,26 @@ public class MonitorActivity extends Activity {
         boolean capture = false;
         try {
             byte[] i = new SocketReceiver(CLIENT_PORT).execute().get();
-            Log.d("DATA111111111", new String(i));
-            Log.d("DATA11111 SIZE", String.valueOf(i.length));
+
             if (i.length == 1) {
-                Log.d("DATA", "THE DATA IS int " + String.valueOf(data));
+                //Log.d("DATA", "THE DATA IS int " + String.valueOf(data));
                 int command = i[0];
                 capture = command == Commands.SEND_PICTURE;
             }
             else  if (i.length > 1){
-                data = i;
-                Log.d("DATA", "THE DATA IS byte " + String.valueOf(data));
-                capture =true;
+                this.data = i;
+                Log.d("DATA", "THE DATA IS byte " + new String(data));
+                capture = true;
             }
         } catch (InterruptedException e) {
             alert(e.getMessage());
+            Log.d("InterruptedException", e.getMessage());
         } catch (ExecutionException e) {
             alert(e.getMessage());
+            Log.d("ExecutionException", e.getMessage());
         } catch (IOException e) {
             alert(e.getMessage());
+            Log.d("IOException", e.getMessage());
         }
 
         return capture;

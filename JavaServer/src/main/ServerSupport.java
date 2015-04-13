@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 
+import utils.Commands;
 import utils.Receiver;
 import utils.Sender;
 
@@ -58,12 +59,13 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 	}
-	public void convertPicToByte(String filename) throws IOException {
-		BufferedImage image = ImageIO.read(new File(filename)); 
+	public void convertPicToByte() throws IOException {
+		System.out.println("Starting Conversion");
+		BufferedImage image = ImageIO.read(new File("Cobb.jpg")); 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 		ImageIO.write(image, "jpg", baos); 
 		byte[] res=baos.toByteArray();
-
+		System.out.println(".. Done converting Image");
 		this.data = res;
 	}
 	@Override
@@ -93,7 +95,7 @@ public class ServerSupport implements Supporter {
 		receiver.run();
 		
 		this.data = receiver.getData();
-		System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
+		//System.out.println("The data is: " + ByteBuffer.wrap(this.data).getInt());
 	}
 	
 	@Override
@@ -115,6 +117,14 @@ public class ServerSupport implements Supporter {
 		return address;
 	}
 
+	@Override
+	public boolean receiveSendPicture() throws IOException {
+		Receiver receiver = Receiver.getInstance(port);
+		receiver.run(); 
+		byte[] data = receiver.getData();
+		int command = ByteBuffer.wrap(data).getInt();
+		return command == Commands.SEND_PICTURE;
+	}
 	
 	@Override
 	public int getClientPort() {

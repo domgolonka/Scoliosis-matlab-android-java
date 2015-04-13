@@ -19,7 +19,7 @@ function run_start()
     %% Receiving image and coordinates
     stInfo.clientConnection.receiveData();
     stInfo.clientConnection.createImage();
-    % capture coordinates file
+    % capture coordinates fileen
     stInfo.clientConnection.receiveData();
     data = stInfo.clientConnection.getCoordinates();
     
@@ -30,15 +30,14 @@ function run_start()
     
     %% Processing Image
     
-    %delete this line... as a test
-    copyfile('USETHISONE.jpg', 'Cobb.jpg');
+    Cobbs;
     
     %% Sending Image
-    fprintf('Ok.. Image is sent and coordinates are recorded\n');
-    
-    
-    runsend(stInfo.clientConnection);
-    
+    fprintf('...Converting Image\n');
+    stInfo.clientConnection.convertPicToByte();
+
+    %send picture to android
+    stInfo.clientConnection.sendPicture();
     
 %catch
     %fprintf('...FAIL\n');
