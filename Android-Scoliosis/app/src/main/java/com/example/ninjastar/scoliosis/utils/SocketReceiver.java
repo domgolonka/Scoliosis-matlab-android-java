@@ -45,7 +45,6 @@ public class SocketReceiver extends AsyncTask<Void, Void, byte[]> {
             if (s != 101) {
                 data = new byte[s];
                 stream.readFully(data);
-                //Log.d("Reading DATA ", String.valueOf(data));
 
             } else {
                 data = ByteBuffer.allocate(4).putInt(s).array();
@@ -91,15 +90,10 @@ public class SocketReceiver extends AsyncTask<Void, Void, byte[]> {
 
         }
     }
-    public byte[] getBytesFromBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return stream.toByteArray();
-    }
+
     @Override
     protected byte[] doInBackground(Void... arg0) {
         byte[] recdata =  receiveData();
-        //Log.d("DATA IS ", new String(recdata));
         return recdata;
     }
 
