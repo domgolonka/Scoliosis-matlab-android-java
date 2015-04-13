@@ -12,10 +12,8 @@ import java.util.concurrent.ExecutionException;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,7 +25,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -120,9 +117,7 @@ public class PictureActivity extends Activity {
             public void onClick(View arg0) {
                 coordinates.clear();
                 clicked =0;
-                Paint clearPaint = new Paint();
-                clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-                canvasMaster.drawRect(0, 0, bmp.getWidth(), bmp.getHeight(), clearPaint);
+                //canvasMaster.drawColor(0, PorterDuff.Mode.CLEAR);
             }
         });
         imageResult.setOnTouchListener(new OnTouchListener() {
