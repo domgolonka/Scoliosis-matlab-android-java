@@ -133,17 +133,18 @@ public class PictureActivity extends Activity {
 
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
-                        textSource.setText("X" + dims[0] + " : Y " + dims[1]);
+                        textSource.setText("Please click on " + (maxclicked-clicked) + " more vertebrae");
+                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        textSource.setText("X" + dims[0] + " : Y " + dims[1]);
+                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
                         break;
                     case MotionEvent.ACTION_UP:
                         dims = drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
                         clicked++;
-                        coordinates.put(clicked, new Coords(dims[0], dims[1]));
-                        textSource.setText("Please click on " + (maxclicked-clicked) + " more vertebrae");
-                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
+                        coordinates.put(clicked, new Coords(dims[1], dims[0]));
+                        //textSource.setText("Please click on " + (maxclicked-clicked) + " more vertebrae");
+                        textSource.setText("X" + dims[0] + " : Y " + dims[1]);
                         imageResult.invalidate();
                         break;
                 }

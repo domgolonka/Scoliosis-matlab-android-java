@@ -243,7 +243,8 @@ plot([botend(2),botst(2)],[botend(1),botst(1),],'color','y','LineWidth',2)
 hold on
 plot([topend(2),topst(2)],[topend(1),topst(1),],'color','y','LineWidth',2)
 saveas(Cobbsimage,'Cobb','jpg')
-
-
+I = imread('Cobb.jpg');
+J = imresize(I, [400 500]);
+imwrite(J,'Cobb.jpg')
 end
 

@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="294dp"
-        android:layout_height="407dp"
+        android:layout_width="match_parent"
+        android:layout_height="395dp"
         android:id="@+id/oldImageView"
         android:layout_gravity="center_horizontal"/>
 

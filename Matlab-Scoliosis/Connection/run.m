@@ -10,16 +10,12 @@ function run_start()
 %try
     %% start server
     stInfo = ServerStart(6999, 1);
-   
-    % capture RGB picture
-    %stOption = struct('sFormat','bShow', true);
-    
-    %getPicture(stInfo.clientConnection);
+  
     
     %% Receiving image and coordinates
     stInfo.clientConnection.receiveData();
     stInfo.clientConnection.createImage();
-    % capture coordinates fileen
+    %% capture coordinates for file
     stInfo.clientConnection.receiveData();
     data = stInfo.clientConnection.getCoordinates();
     
@@ -30,7 +26,8 @@ function run_start()
     
     %% Processing Image
     
-    Cobbs;
+    %Cobbs;
+    pause(4);
     
     %% Sending Image
     fprintf('...Converting Image\n');

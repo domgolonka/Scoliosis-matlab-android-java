@@ -45,7 +45,7 @@ public class MonitorActivity extends Activity {
 
         @Override
         public void run() {
-            while (listenCapture()) {
+            while (listenCapture() == false) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -74,10 +74,8 @@ public class MonitorActivity extends Activity {
 
 
     private void startViewImage() {
-        Log.d("DATA DATA DATA", new String(this.data));
         Intent intent = new Intent(this, viewImage.class);
         intent.putExtra("imagedata", this.data);
-        intent.putExtra("test", 1234567890);
         startActivity(intent);
     }
 
@@ -99,7 +97,7 @@ public class MonitorActivity extends Activity {
             }
             else  if (i.length > 1){
                 this.data = i;
-                Log.d("DATA", "THE DATA IS byte " + new String(data));
+                //Log.d("DATA", "THE DATA IS byte " + new String(data));
                 capture = true;
             }
         } catch (InterruptedException e) {
@@ -112,7 +110,6 @@ public class MonitorActivity extends Activity {
             alert(e.getMessage());
             Log.d("IOException", e.getMessage());
         }
-
         return capture;
 
     }

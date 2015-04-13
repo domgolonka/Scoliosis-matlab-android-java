@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 public class viewImage extends Activity  implements saveImageDialogFragment.onSaveSelectedListener{
@@ -47,18 +49,22 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
 
         Log.i("viewImage", "EXTRA_MESSAGE is: "+intent.getStringExtra(Library.EXTRA_MESSAGE));
 
-        if(intent.getStringExtra(Library.EXTRA_MESSAGE) == null){   //Came from PictureActivity
+        if(intent.getStringExtra(Library.EXTRA_MESSAGE) == null) {   //Came from PictureActivity
             Log.i("viewImage", "EXTRA_MESSAGE == null if passed");
-            //matlabImage = BitmapFactory.decodeFile(this.getFilesDir() + "/Jane Smith");     //CHANGE TO MATLAB IMAGE HERE
-            Bundle extras = getIntent().getExtras();
-            Log.d("DATA", "DATADATADATA");
+
             data = intent.getByteArrayExtra("imagedata");
-            //data = extras.getByteArray("imagedata");
-            int test = extras.getInt("test");
-            Log.d("DATA TEST", String.valueOf(test));
-            Log.d("DATA DATA", new String(data));
-            matlabImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inDither = true;
+            opt.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+            matlabImage = BitmapFactory.decodeByteArray(data, 0, data.length, opt);
             imageView.setImageBitmap(matlabImage);
+
+
+            //Log.d("DATA IN MATLAB:", matlabImage.toString());
+            Log.d("DATA IN IMAGE:", imageView.toString());
+
         }
 
         else{       //Came from Library. Load Image and hide save and retry buttons

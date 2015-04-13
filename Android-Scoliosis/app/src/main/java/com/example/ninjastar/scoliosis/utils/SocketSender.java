@@ -26,7 +26,6 @@ public class SocketSender extends AsyncTask<Boolean, Void, Boolean> {
     public SocketSender (String host, int port, int data) {
         this._host = host;
         this._port = port;
-        Log.d("WIDTH OR HIEGHT", String.valueOf(data));
         this._data = ByteBuffer.allocate(4).putInt(data).array();
     }
 
