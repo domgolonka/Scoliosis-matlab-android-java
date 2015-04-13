@@ -14,6 +14,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -118,6 +120,9 @@ public class PictureActivity extends Activity {
             public void onClick(View arg0) {
                 coordinates.clear();
                 clicked =0;
+                Paint clearPaint = new Paint();
+                clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+                canvasMaster.drawRect(0, 0, bmp.getWidth(), bmp.getHeight(), clearPaint);
             }
         });
         imageResult.setOnTouchListener(new OnTouchListener() {
@@ -153,7 +158,7 @@ public class PictureActivity extends Activity {
                 return true;
             }});
     }
-   
+
     private void startMonitor() {
         if (_ipAddress.isEmpty()) {
             return;
