@@ -37,6 +37,6 @@ function run_start()
     stInfo.clientConnection.sendPicture();
     fprintf('...FINISHED\n');
 %catch
-    fprintf('...FAIL\n');
+    %fprintf('...FAIL\n');
 %end
 end

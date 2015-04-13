@@ -126,18 +126,19 @@ public class PictureActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
 
                 int action = event.getAction();
-                int[] rate = getBitmapOffset(imageResult, true);
-                x = (int) event.getX() - rate[1];
-                y = (int) event.getY() - rate[0];
+
+
+                x = (int)((double)event.getX() * ((double)bmp.getWidth()/((double)v.getWidth())));
+                y = (int)((double) event.getY() * ((double)bmp.getHeight()/((double)v.getHeight())));
                 int[] dims = new int[2];
 
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
-                        textSource.setText("Please click on " + (maxclicked-clicked) + " more vertebrae");
-                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
+                        //textSource.setText("Please click on " + (maxclicked-clicked) + " more vertebrae");
+                        textSource.setText("Y" + y + " : X " + x);
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        //textSource.setText("X" + dims[0] + " : Y " + dims[1]);
+                        textSource.setText("Y" + y + " : X " + x);
                         break;
                     case MotionEvent.ACTION_UP:
                         dims = drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
@@ -152,26 +153,7 @@ public class PictureActivity extends Activity {
                 return true;
             }});
     }
-    public static int[] getBitmapOffset(ImageView img,  Boolean includeLayout) {
-        int[] offset = new int[2];
-        float[] values = new float[9];
-
-        Matrix m = img.getImageMatrix();
-        m.getValues(values);
-
-        offset[0] = (int) values[5];
-        offset[1] = (int) values[2];
-
-        if (includeLayout) {
-            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) img.getLayoutParams();
-            int paddingTop = (int) (img.getPaddingTop() );
-            int paddingLeft = (int) (img.getPaddingLeft() );
-
-            offset[0] += paddingTop + lp.topMargin;
-            offset[1] += paddingLeft + lp.leftMargin;
-        }
-        return offset;
-    }
+   
     private void startMonitor() {
         if (_ipAddress.isEmpty()) {
             return;

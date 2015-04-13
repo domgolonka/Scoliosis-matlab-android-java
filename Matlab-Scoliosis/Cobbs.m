@@ -45,7 +45,7 @@ for i=2:length(stpoint(:,1))
     if stpoint(i,1)>stpoint(i-1,1)+100
         bstpoint=vertcat(tstpoint,stpoint(i:end-1,:));
         tstpoint=vertcat(bstpoint,stpoint(1:i-1,:));
-        end
+    end
 end
 
 eX=stpoint(end,1);
@@ -243,8 +243,8 @@ plot([botend(2),botst(2)],[botend(1),botst(1),],'color','y','LineWidth',2)
 hold on
 plot([topend(2),topst(2)],[topend(1),topst(1),],'color','y','LineWidth',2)
 saveas(Cobbsimage,'Cobb','jpg')
-I = imread('Cobb.jpg');
-J = imresize(I, [400 500]);
-imwrite(J,'Cobb.jpg')
+%I = imread('Cobb.jpg');
+%J = imresize(I, [400 500]);
+%imwrite(J,'Cobb.jpg')
 end
 
