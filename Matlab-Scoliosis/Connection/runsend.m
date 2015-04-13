@@ -1,16 +1,16 @@
-function runsend()
+function runsend(clientConnection)
 evalin('base', 'close all;clc;');
 
 profile on;
-run_send();
+run_send(clientConnection);
 profile off;
 end
 
-function run_send()
+function run_send(clientConnection)
 %try
     %% start server
-    stInfo = load('clientConnection');
-    sendPicture(stInfo);
+    fprintf('...Sending processed image back to android\n');
+    sendPicture(clientConnection);
    
     
     %fprintf('...OK\n');

@@ -83,7 +83,7 @@ public class ServerSupport implements Supporter {
 		}
 		
 		Sender sender = new Sender(clientIpAddress, clientPort);
-		sender.init(data);
+		sender.initpic(data);
 		sender.run(true);
 	}
 	@Override

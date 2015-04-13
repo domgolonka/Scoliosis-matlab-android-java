@@ -28,6 +28,7 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
     private String FILENAME;
     ImageView imageView;
     Bitmap matlabImage;
+    private byte[] data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,11 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
 
         if(intent.getStringExtra(Library.EXTRA_MESSAGE) == null){   //Came from PictureActivity
             Log.i("viewImage", "EXTRA_MESSAGE == null if passed");
-            matlabImage = BitmapFactory.decodeFile(this.getFilesDir() + "/Jane Smith");     //CHANGE TO MATLAB IMAGE HERE
+            //matlabImage = BitmapFactory.decodeFile(this.getFilesDir() + "/Jane Smith");     //CHANGE TO MATLAB IMAGE HERE
+            Bundle extras = getIntent().getExtras();
+
+            data = extras.getByteArray("image");
+            matlabImage = BitmapFactory.decodeByteArray(data, 0, data.length);
             imageView.setImageBitmap(matlabImage);
         }
 

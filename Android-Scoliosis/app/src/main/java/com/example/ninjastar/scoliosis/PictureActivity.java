@@ -105,6 +105,8 @@ public class PictureActivity extends Activity {
                         Log.d("InterruptedException", e.getMessage());
                     }
 
+                    startMonitor();
+
                 } else {
                     alert("You need to enter " + (maxclicked - clicked) + " more coordinates");
                 }
@@ -127,6 +129,7 @@ public class PictureActivity extends Activity {
                 int[] rate = getBitmapOffset(imageResult, true);
                 x = (int) event.getX() - rate[1];
                 y = (int) event.getY() - rate[0];
+                int[] dims = new int[2];
 
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
@@ -136,7 +139,7 @@ public class PictureActivity extends Activity {
                         textSource.setText("X" + x + " : Y " + y);
                         break;
                     case MotionEvent.ACTION_UP:
-                        int[] dims = drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
+                        dims = drawOnProjectedBitMap((ImageView)v, bmp, (int)event.getX(), (int)event.getY());
                         clicked++;
                         coordinates.put(clicked, new Coords(dims[0], dims[1]));
                         textSource.setText("Please click on the vertebrae " + (maxclicked-clicked) + " more times");
@@ -168,7 +171,17 @@ public class PictureActivity extends Activity {
         }
         return offset;
     }
+    private void startMonitor() {
+        if (_ipAddress.isEmpty()) {
+            return;
+        }
 
+        Intent intent = new Intent(this, MonitorActivity.class);
+        intent.putExtra("ipAddress", _ipAddress);
+        intent.putExtra("port", _port);
+        intent.putExtra("CLIENT_PORT", CLIENT_PORT);
+        startActivity(intent);
+    }
     private void alert(String text) {
         AlertDialog ad = new AlertDialog.Builder(this).create();
         ad.setCancelable(true);
@@ -180,7 +193,7 @@ public class PictureActivity extends Activity {
      * draw on it
      */
     private int[] drawOnProjectedBitMap(ImageView iv, Bitmap bm, int x, int y){
-        int[] results = new int[1];
+        int[] results = new int[2];
         if(x<0 || y<0 || x > iv.getWidth() || y > iv.getHeight()){
             //outside ImageView
             return results;
@@ -192,7 +205,7 @@ public class PictureActivity extends Activity {
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.RED);
             paint.setStrokeWidth(3);
-            canvasMaster.drawCircle(results[0], results[0], 5, paint);
+            canvasMaster.drawCircle(results[0], results[1], 5, paint);
             imageResult.invalidate();
             //Log.d("WIDTH", String.valueOf(x) + " " + bm.getWidth() + " " + iv.getWidth());
             //Log.d("HEIGHT", String.valueOf(y) + " " + bm.getHeight() + " " + iv.getHeight());

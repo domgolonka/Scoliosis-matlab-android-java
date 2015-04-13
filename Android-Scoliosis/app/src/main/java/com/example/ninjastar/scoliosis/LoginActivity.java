@@ -22,6 +22,7 @@ import com.example.ninjastar.scoliosis.utils.SocketReceiver;
 import com.example.ninjastar.scoliosis.utils.SocketSender;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -133,8 +134,8 @@ public class LoginActivity extends Activity {
     private void login() throws InterruptedException,
             ExecutionException, IOException {
 
-        int command = new SocketReceiver(CLIENT_PORT).execute().get();
-
+        byte[] i = new SocketReceiver(CLIENT_PORT).execute().get();
+        int command = new BigInteger(i).intValue();
         if (command == Commands.LOGIN) {
             startEditPicture();
         }
@@ -175,17 +176,7 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    private void startMonitor() {
-        if (_ipAddress.isEmpty()) {
-            return;
-        }
 
-        Intent intent = new Intent(this, MonitorActivity.class);
-        intent.putExtra("ipAddress", _ipAddress);
-        intent.putExtra("port", _port);
-        intent.putExtra("CLIENT_PORT", CLIENT_PORT);
-        startActivity(intent);
-    }
 
 
     @Override

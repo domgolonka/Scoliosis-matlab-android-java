@@ -2,8 +2,12 @@ package com.example.ninjastar.scoliosis;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,7 @@ import com.example.ninjastar.scoliosis.utils.SocketReceiver;
 import com.example.ninjastar.scoliosis.utils.SocketSender;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -24,11 +29,11 @@ import java.util.concurrent.ExecutionException;
 
 public class MonitorActivity extends Activity {
 
-    private Camera _camera;
-   // private CameraPreview _mPreview;
+
 
     private String _ipAddress;
     private int _port;
+    private byte[] data;
 
     private int CLIENT_PORT;
 
@@ -41,15 +46,15 @@ public class MonitorActivity extends Activity {
         @Override
         public void run() {
             while (listenCapture()) {
-                //new CapturePictureTask (_ipAddress, _port).execute(_camera);
                 try {
-                    // The sleep time should be adjusted
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-
+                    Log.d("Thread InterruptedExc", e.getMessage());
                 }
 
             }
+            startViewImage();
+
 
         }
 
@@ -58,15 +63,24 @@ public class MonitorActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_monitor);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             _ipAddress = extras.getString("ipAddress");
             _port = extras.getInt("port");
             CLIENT_PORT = extras.getInt("CLIENT_PORT");
         }
+        runCapture();
+        
     }
 
 
+    private void startViewImage() {
+
+        Intent intent = new Intent(this, viewImage.class);
+        intent.putExtra("image", data);
+        startActivity(intent);
+    }
 
 
     private void runCapture() {
@@ -76,9 +90,20 @@ public class MonitorActivity extends Activity {
 
     private boolean listenCapture() {
         boolean capture = false;
-
         try {
-            int command = new SocketReceiver(CLIENT_PORT).execute().get();
+            byte[] i = new SocketReceiver(CLIENT_PORT).execute().get();
+            Log.d("DATA111111111", new String(i));
+            Log.d("DATA11111 SIZE", String.valueOf(i.length));
+            if (i.length == 1) {
+                Log.d("DATA", "THE DATA IS int " + String.valueOf(data));
+                int command = i[0];
+                capture = command == Commands.SEND_PICTURE;
+            }
+            else  if (i.length > 1){
+                data = i;
+                Log.d("DATA", "THE DATA IS byte " + String.valueOf(data));
+                capture =true;
+            }
         } catch (InterruptedException e) {
             alert(e.getMessage());
         } catch (ExecutionException e) {
@@ -90,24 +115,6 @@ public class MonitorActivity extends Activity {
         return capture;
 
     }
-
-
-
-
-
-    @SuppressWarnings("deprecation")
-    private void sendCameraStop() {
-
-        if (_captureThread.isAlive()) {
-            try {
-                _captureThread.stop();
-            } catch (Exception e) {
-                _captureThread.interrupt();
-            }
-        }
-
-    }
-
 
 
 

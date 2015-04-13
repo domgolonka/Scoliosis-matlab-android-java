@@ -42,7 +42,7 @@ public class Sender {
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	public void init(byte[] pic) throws UnknownHostException, IOException {
+	public void initpic(byte[] pic) throws UnknownHostException, IOException {
 		if (socket == null) {
 			socket = new Socket(ipAddress, port);
 		}
