@@ -86,14 +86,6 @@ public class Library extends Activity {
     }
 
 
-    /*
-    Open imagesavetest Activity TODEL
-     */
-
-    public void openGallery(View view){
-        Intent intent = new Intent(this, imagesavetest.class);
-        startActivity(intent);
-    }
 
     /*
     Open viewImage without a EXTRAMESSAGE to test hidding buttons TODEL

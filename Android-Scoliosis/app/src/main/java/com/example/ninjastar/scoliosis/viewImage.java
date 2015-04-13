@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class viewImage extends Activity  implements saveImageDialogFragment.onSaveSelectedListener{
+public class viewImage extends Activity{
 
     private String FILENAME;
     ImageView imageView;
@@ -74,49 +74,11 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
 
     public void saveImageButton(View view){
 
-        //saveImageDialogFragment dialogFragment = new saveImageDialogFragment();
-        //dialogFragment.show(getFragmentManager(), "dialog");
-
         Log.i("viewImage", "saveImageButton has been called");
 
         EditText filename = (EditText) findViewById(R.id.filename);
         FILENAME = filename.getText().toString();
 
-//
-//        LayoutInflater inflater = LayoutInflater.from(this);
-//        View viewDialog = inflater.inflate(R.layout.fragment_savenamedialog, null);
-//
-//        AlertDialog.Builder saveImageDialogBuilder = new AlertDialog.Builder(this);
-//        //saveImageDialogBuilder.setView(viewDialog);
-//
-//        final TextView filenameTextView = (EditText) viewDialog.findViewById(R.id.filenameEditText);
-//
-//        saveImageDialogBuilder.setMessage("Message")
-//                              .setTitle("Title");
-//        AlertDialog dialog = saveImageDialogBuilder.create();
-
-//        saveImageDialogBuilder
-//                .setTitle("Enter the desired filename:")
-//                .setView(viewDialog)
-//                .setPositiveButton("Save",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                                public void onClick(DialogInterface dialog, int whichButton) {
-//                                    FILENAME = filenameTextView.getText().toString();
-//
-//                                }
-//                })
-//                .setNegativeButton("Cancel",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.cancel();
-//                            }
-//                        });
-        //create the dialog
-     //   AlertDialog saveImageDialog = saveImageDialogBuilder.create();
-
-        //Save picture and move to Library activity if OK is pressed
         Log.i("viewImage", "FILENAME is: "+FILENAME);
         if (FILENAME != null){
 
@@ -143,16 +105,6 @@ public class viewImage extends Activity  implements saveImageDialogFragment.onSa
 
 
      }
-
-    //Method to recieve text from dialog
-    public void onSaveSelected(String string){
-        FILENAME  = string;
-    }
-
-    public void retryButton(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
 
     @Override
