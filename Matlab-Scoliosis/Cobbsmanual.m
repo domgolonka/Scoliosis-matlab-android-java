@@ -1,4 +1,4 @@
-function [] = Cobbs(~)
+function [] = Cobbsmanual(~)
 image=imsharpen(rgb2gray(imread('USETHISONE.jpg')));
 if ischar(image)==1
     image=imsharpen(rgb2gray(imread(image)));
@@ -30,42 +30,41 @@ plot(valid_corners);
 
 %if list(1)<200
 
-
-fid=fopen('coordinates.txt','r');
-tline=fgetl(fid);
-for i =1:length(tline)
-    if tline(i)=='{' || tline(i)=='=' || tline(i)==',' || tline(i)=='}'
-        tline(i)=0;
-    end
-end
-newline=str2num(tline);
-stpoint=vertcat(newline(2:3),newline(5:6),newline(8:9),newline(11:12),newline(14:15));
+%fid=fopen('coordinations.txt','r');
+%tline=fgetl(fid);
+%for i =1:length(tline)
+%    if tline(i)=='{' || tline(i)=='=' || tline(i)==',' || tline(i)=='}'
+%        tline(i)=0;
+%    end
+%end
+%newline=str2num(tline);
+%stpoint=vertcat(newline(2:3),newline(5:6),newline(8:9),newline(11:12),newline(14:15));
 
 bstpoint=[]; tstpoint=[];
-for i=2:length(stpoint(:,1))
-    if stpoint(i,1)>stpoint(i-1,1)+100
-        bstpoint=vertcat(bstpoint,stpoint(i:end-1,:));
-        tstpoint=vertcat(tstpoint,stpoint(1:i-1,:));
-        end
-end
+%for i=2:length(stpoint(:,1))
+%    if stpoint(i,1)>stpoint(i-1,1)+100
+%        bstpoint=vertcat(bstpoint,stpoint(i:end-1,:));
+%        tstpoint=vertcat(tstpoint,stpoint(1:i-1,:));
+%        end
+%end
 
-eX=stpoint(end,1);
-eY=stpoint(end,2);
+%eX=stpoint(end,1);
+%eY=stpoint(end,2);
 
-%figure
-%imshow(image),title('Click the centres of suspected vertebrae')
-%[tY,tX]=getpts;
-
+figure
+imshow(image),title('Click the centres of suspected vertebrae')
+[tY,tX]=getpts;
+tstpoint=[round(tX),round(tY)];
 %if list(1)>200
 
-%figure,imshow(image),title('Click the bottom corners of suspected lower vertebrae')
-%[bY,bX]=getpts;
-
+figure,imshow(image),title('Click the bottom corners of suspected lower vertebrae')
+[bY,bX]=getpts;
+bstpoint=[round(bX),round(bY)];
 %list(end,:)
 
-%figure,imshow(image),title('Click the best example vertebrae')
-%[eY,eX]=getpts;
-%eX=round(eX);eY=round(eY);
+figure,imshow(image),title('Click the best example vertebrae')
+[eY,eX]=getpts;
+eX=round(eX);eY=round(eY);
 
 
 
